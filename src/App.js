@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import {ethers} from 'ethers';
+import {Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
+import {Pie} from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
+
 import './App.css';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json'
 import Token from './artifacts/contracts/Token.sol/Token.json'
@@ -11,6 +16,20 @@ function App() {
   const [greeting, setGreetingValue] = useState('')
   const [userAccount, setUserAccount] = useState('')
   const [amount, setAmount] = useState(0)
+
+  const state = {
+  labels: ['January', 'February', 'March',
+           'April', 'May'],
+  datasets: [
+    {
+      label: 'Rainfall',
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(0,0,0,1)',
+      borderWidth: 2,
+      data: [65, 59, 80, 81, 56]
+    }
+  ]
+}
 
   async function fetchGreeting() {
     if (typeof window.ethereum != 'undefined'){
@@ -83,6 +102,71 @@ function App() {
           <button onClick={sendCoins}>Send Coins</button>
           <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID" />
           <input onChange={e => setAmount(e.target.value)} placeholder="Amount" />
+
+          <br/>
+
+        <Bar
+          data={state}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+
+          <br/>
+
+          <Line
+          data={state}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+
+        <Pie
+          data={state}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+
+        <Doughnut
+          data={state}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+
       </header>
     </div>
   );
